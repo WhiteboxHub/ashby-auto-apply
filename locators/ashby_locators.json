@@ -1,0 +1,70 @@
+
+{
+    "apply_selectors": [
+        "button._primary_8wvgw_96",
+        "button[data-testid='apply-button']",
+        "a[data-testid='apply-button']"
+    ],
+
+    
+    "form_fields": {
+        "name": ["#_systemfield_name", "input[name='name']"],
+        "email": ["#_systemfield_email", "input[name='email']"],
+        "phone": ["input[type='tel']", "input[name='phone']", "input[type='number']"],
+        "address": ["textarea[name='address']", "textarea._input_1wnh2_29"],
+        "location": ["input[role='combobox']", "input[placeholder*='Start typing']"]
+    },
+    "location_suggestion": ".location-suggestion",
+    "qa_selectors": [
+        "div._fieldEntry_hkyf8_29 label._heading_101oc_53._label_hkyf8_43.ashby-application-form-question-title",
+        "div._fieldEntry_hkyf8_29",
+        "fieldset._container_1v5e2_29",
+        "select:not([multiple])",
+        "select[multiple]",
+        "input[type='checkbox']",  
+        "input[type='radio']",      
+        "button[type='button']"
+    ],
+
+    "file_input_selectors": [
+        "input[type='file']"
+   
+    ],
+    "submit_selectors": [
+        "button._primary_8wvgw_96",
+        "button[data-testid='submit-application']",
+        "button._submitButton_1wnh2_1",
+        "button[type='submit']",
+        "button:has(span:contains('Submit'))",
+        "input[type='submit']"
+    ],
+    "error_selectors": [
+        "._error_1wnh2_1",
+        "[aria-invalid='true']",
+        ".field-error",
+        ".error-message"
+    ],
+    "confirmation_indicators": [
+        {
+            "method": "presence_of_element_located",
+            "by": "CSS_SELECTOR",
+            "value": "div[data-testid='submission-success']"
+        },
+        {
+            "method": "presence_of_element_located",
+            "by": "CSS_SELECTOR",
+            "value": "._success_1wnh2_1"
+        },
+        {
+            "method": "presence_of_element_located",
+            "by": "XPATH",
+            "value": "//h1[contains(translate(text(), 'THANKYOU', 'thankyou'), 'thank') or contains(translate(text(), 'SUCCESS', 'success'), 'success')]"
+        },
+        {
+            "method": "presence_of_element_located",
+            "by": "XPATH",
+            "value": "//*[contains(translate(text(), 'APPLICATIONSUBMITTED', 'applicationsubmitted'), 'application has been submitted')]"
+        }
+    ]
+}
+
