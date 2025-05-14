@@ -29,15 +29,17 @@
     "file_input_selectors": [
         "input[type='file']"
    
-    ],
-    "submit_selectors": [
+    ], "submit_selectors": [
         "button._primary_8wvgw_96",
         "button[data-testid='submit-application']",
+        "button._submitButton_14ib5_416",
+        "button.ashby-application-form-submit-button",
         "button._submitButton_1wnh2_1",
         "button[type='submit']",
         "button:has(span:contains('Submit'))",
         "input[type='submit']"
-    ],
+      ],
+    
     "error_selectors": [
         "._error_1wnh2_1",
         "[aria-invalid='true']",

@@ -61,24 +61,24 @@ def select_profile():
             print("Invalid input. Please enter a number.")
 
 def generate_job_links_from_csv(file_path):
-    # Load the CSV file
+    
     data = pd.read_csv(file_path)
 
-    # Base URL for Ashby job links
+   
     base_url = "https://jobs.ashbyhq.com/{company}/{job_id}"
 
-    # List to store generated job links
+    
     job_links = []
 
-    # Iterate over the rows in the CSV file
+   
     for index, row in data.iterrows():
         company = row['company']
         platform = row['platform']
         job_id = row['job_id']
 
-        # Check if the platform is a string and equals "ashby"
+      
         if isinstance(platform, str) and platform.lower() == 'ashby':
-            # Generate the job link
+          
             job_link = base_url.format(company=company, job_id=job_id)
             job_links.append(job_link)
 
@@ -545,18 +545,36 @@ class AshbyJobApply:
         time.sleep(0.3)
         apply_style(original_style)
 
+    # def _find_submit_button(self):
+    #     try:
+    #         button = WebDriverWait(self.driver, 10).until(
+    #             EC.element_to_be_clickable((By.CSS_SELECTOR, "button._button_8wvgw_29._primary_8wvgw_96._greedy_8wvgw_218._submitButton_4fqrp_411.ashby-application-form-submit-button"))
+    #         )
+    #         if button.is_displayed():
+    #             logging.info("Found submit button with CSS selector")
+    #             self._highlight_element(button, "green")
+    #             return button
+    #     except Exception as e:
+    #         logging.error(f"Could not locate submit button with CSS selector: {str(e)}")
+    #         raise
     def _find_submit_button(self):
-        try:
-            button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "button._button_8wvgw_29._primary_8wvgw_96._greedy_8wvgw_218._submitButton_4fqrp_411.ashby-application-form-submit-button"))
-            )
-            if button.is_displayed():
-                logging.info("Found submit button with CSS selector")
-                self._highlight_element(button, "green")
-                return button
-        except Exception as e:
-            logging.error(f"Could not locate submit button with CSS selector: {str(e)}")
-            raise
+        submit_selectors = locators.get("submit_selectors", [])
+
+        for selector in submit_selectors:
+            try:
+                button = WebDriverWait(self.driver, 3).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, selector))
+                )
+                if button.is_displayed():
+                    logging.info(f"Found submit button using selector: {selector}")
+                    self._highlight_element(button, "green")
+                    return button
+            except Exception as e:
+                logging.debug(f"Selector failed: {selector} - {str(e)}")
+
+        logging.error("Could not locate submit button using any known selectors")
+        return None
+
 
     def _click_submit_button(self, button, max_attempts=3):
         for attempt in range(max_attempts):
@@ -646,6 +664,10 @@ class AshbyJobApply:
             self.log_application_status("Submission Error")
             return False
 
+
+        
+    
+
     def log_application_status(self, status):
         # Get the current date to create a day-wise log file
         current_date = datetime.now().strftime("%Y-%m-%d")
@@ -707,3 +729,6 @@ if __name__ == "__main__":
 
     except Exception as e:
         logging.error(f"Fatal error: {str(e)}")
+
+
+
